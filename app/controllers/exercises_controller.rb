@@ -1,7 +1,8 @@
 class ExercisesController < ApplicationController
 	before_action :set_exercise, except: [:index, :new, :create]
-	
+
 	def index
+		 @exercises = current_user.exercises
 	end
 
 	def show
@@ -9,7 +10,7 @@ class ExercisesController < ApplicationController
 	end
 
 	def new
-		@exercise = current_user.exercise.new
+		@exercise = current_user.exercises.new
 	end
 
 	def create
@@ -19,7 +20,7 @@ class ExercisesController < ApplicationController
 		 	flash[:notice] = "Exercise has been created"
 		 	redirect_to [current_user, @exercise]
 		 else 
-		 	flash[:alert] = "Exercise has not been created"
+		 	flash.now[:alert] = "Exercise has not been created"
 		 	render :new
 		 end
 	end
